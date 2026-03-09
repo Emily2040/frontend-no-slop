@@ -1,0 +1,54 @@
+{
+  "banned_phrases": [
+    {
+      "phrase": "clean and modern",
+      "reason": "Style claim without interface mechanism",
+      "replace_with": "Describe hierarchy, spacing, density, contrast, and typography choices."
+    },
+    {
+      "phrase": "sleek",
+      "reason": "Aesthetic filler word",
+      "replace_with": "Name actual layout, material, or motion choices."
+    },
+    {
+      "phrase": "intuitive",
+      "reason": "Claims usability without evidence",
+      "replace_with": "Explain the affordance, label, feedback, or navigation cue that makes it usable."
+    },
+    {
+      "phrase": "premium",
+      "reason": "Mood marker, not an implementation detail",
+      "replace_with": "Explain restraint, proof, content hierarchy, or visual density."
+    },
+    {
+      "phrase": "stunning",
+      "reason": "Generic praise",
+      "replace_with": "Describe what changes on screen and why it helps."
+    },
+    {
+      "phrase": "next-level",
+      "reason": "Hype phrase",
+      "replace_with": "State the measurable or visible improvement."
+    },
+    {
+      "phrase": "best-in-class",
+      "reason": "Unsupported bragging",
+      "replace_with": "State the actual interaction or content advantage."
+    },
+    {
+      "phrase": "seamless",
+      "reason": "Hand-wave around complexity",
+      "replace_with": "Name the reduced steps, clearer states, or visible system feedback."
+    },
+    {
+      "phrase": "delightful",
+      "reason": "Emotional claim without mechanism",
+      "replace_with": "Describe the exact copy, motion, or interaction that creates clarity."
+    },
+    {
+      "phrase": "cutting-edge",
+      "reason": "Empty trend language",
+      "replace_with": "Name the concrete feature or technical approach instead."
+    }
+  ]
+}

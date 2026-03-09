@@ -1,0 +1,139 @@
+{
+  "task_type": "design",
+  "page_type": "landing-page",
+  "grounding": {
+    "known_facts": [
+      "The product monitors warehouse query cost spikes.",
+      "The current hero is abstract and lacks product evidence.",
+      "The page currently shows three CTAs in the first viewport.",
+      "The tone must stay plain and technical."
+    ],
+    "explicit_constraints": [
+      "Primary CTA must be 'Book demo'.",
+      "Secondary CTA must be 'See query sample'.",
+      "Avoid glassmorphism and decorative neon.",
+      "Use the existing 8px spacing scale and 12px radius."
+    ],
+    "labeled_assumptions": [
+      "Assumption: both desktop and mobile web matter.",
+      "Assumption: one product screenshot or annotated sample query can be shown above the fold."
+    ]
+  },
+  "design_principles": [
+    "Explain the product in concrete warehouse-cost terms before describing platform breadth.",
+    "Keep one dominant action in the first viewport and demote the lower-risk exploration path.",
+    "Use proof early: show sample query output, detected spike, and cost delta instead of abstract decoration."
+  ],
+  "layout_plan": {
+    "primary_goal": "Make the offer legible in one scan and route serious buyers to the demo CTA.",
+    "section_order": [
+      "Hero with product sentence, proof screenshot, and one primary CTA",
+      "Three concrete use cases tied to cost spikes, regressions, and owner handoff",
+      "Short proof strip with customer context or sample savings format",
+      "Pricing or plan framing",
+      "FAQ handling setup complexity and warehouse support"
+    ],
+    "hierarchy_notes": [
+      "Lead with a headline about catching expensive queries before spend compounds.",
+      "Place the screenshot next to the headline on desktop and under it on mobile.",
+      "Keep the secondary CTA as a text link or low-emphasis button near the primary CTA."
+    ],
+    "responsive_strategy": [
+      "Collapse the hero to a single column under tablet width.",
+      "Turn multi-column proof cards into stacked cards with unchanged reading order."
+    ]
+  },
+  "components": [
+    {
+      "name": "Hero CTA group",
+      "purpose": "Route buyers to the main next step without splitting attention.",
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "disabled",
+        "mobile stacked layout"
+      ],
+      "accessibility_notes": [
+        "Primary and secondary actions need distinct accessible names.",
+        "Focus ring must remain visible against the neutral background."
+      ],
+      "implementation_notes": [
+        "Use one high-emphasis button for the demo and a low-emphasis button or text link for the sample query.",
+        "Do not add a third CTA in the hero."
+      ]
+    },
+    {
+      "name": "Proof screenshot block",
+      "purpose": "Show what the product detects and why it matters.",
+      "states": [
+        "default",
+        "narrow-width stacked layout",
+        "image unavailable fallback"
+      ],
+      "accessibility_notes": [
+        "Provide concise alt text that describes the highlighted cost spike.",
+        "Do not rely on color alone to indicate the spike."
+      ],
+      "implementation_notes": [
+        "Use a static screenshot or annotated illustration with visible labels.",
+        "Reserve space to avoid layout shift."
+      ]
+    }
+  ],
+  "content_guidance": {
+    "headline": "Catch expensive warehouse queries before they become a monthly surprise.",
+    "primary_cta": "Book demo",
+    "secondary_cta": "See query sample",
+    "microcopy_rules": [
+      "Name the warehouse problem before mentioning platform scope.",
+      "Use specific actions like detect, compare, and notify instead of hype verbs.",
+      "Keep feature labels tied to cost, ownership, and regression review."
+    ],
+    "banned_phrases": [
+      "clean and modern",
+      "next-level",
+      "seamless",
+      "cutting-edge"
+    ]
+  },
+  "a11y_and_performance": {
+    "semantic_html": [
+      "Use a single h1 in the hero and landmark regions for main, nav, and footer.",
+      "Structure use cases as a list rather than decorative cards with unnamed headings."
+    ],
+    "keyboard_and_focus": [
+      "Ensure the hero CTA group is reachable in a logical order.",
+      "Retain visible focus treatment on all interactive proof links."
+    ],
+    "screen_reader_notes": [
+      "Give the screenshot block a concise text description.",
+      "Expose proof-strip headings in a meaningful reading order."
+    ],
+    "motion_and_color": [
+      "Avoid ambient animation in the hero.",
+      "Use icon shape or text labels, not color alone, to distinguish severity."
+    ],
+    "performance_actions": [
+      "Compress the hero image and reserve its layout space.",
+      "Avoid a large client-rendered carousel in the proof section."
+    ]
+  },
+  "risks": [
+    {
+      "severity": "high",
+      "issue": "The current message is too abstract.",
+      "reason": "Buyers cannot tell what the product detects in the first viewport."
+    },
+    {
+      "severity": "medium",
+      "issue": "Too many CTAs split attention.",
+      "reason": "Three first-view actions weaken the main conversion path."
+    }
+  ],
+  "next_actions": [
+    "Rewrite the hero around warehouse query cost spikes and add a single proof screenshot.",
+    "Reduce the hero to one primary CTA and one lower-emphasis secondary path.",
+    "Move proof and pricing above late-scroll FAQ content."
+  ]
+}

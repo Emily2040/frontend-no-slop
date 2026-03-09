@@ -1,0 +1,1 @@
+Load `.agents/skills/frontend-no-slop/SKILL.md` for grounded frontend UI design, critique, component specs, accessibility review, and implementation planning. Prefer concrete interface decisions over vague style adjectives.

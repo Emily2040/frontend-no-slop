@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Frontend No-Slop Runtime Output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "page_type",
+    "summary",
+    "evidence",
+    "fixes",
+    "state_gaps",
+    "a11y_flags",
+    "performance_flags",
+    "copy_flags",
+    "next_steps"
+  ],
+  "properties": {
+    "page_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "string"
+      }
+    },
+    "fixes": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "priority",
+          "issue",
+          "action"
+        ],
+        "properties": {
+          "priority": {
+            "type": "string",
+            "enum": [
+              "p0",
+              "p1",
+              "p2"
+            ]
+          },
+          "issue": {
+            "type": "string",
+            "minLength": 1
+          },
+          "action": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "state_gaps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "a11y_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "performance_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "copy_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_steps": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "evidence_priority": [
+    "user brief",
+    "existing code",
+    "screenshots or mockups",
+    "existing copy",
+    "design tokens or component library",
+    "analytics or task failure notes"
+  ],
+  "questions": [
+    "What is the primary task on this surface in the first 30 seconds?",
+    "What content or code must stay?",
+    "What is the main CTA and what is the lower-risk secondary path?",
+    "Which breakpoints matter?",
+    "What states already exist and which are missing?",
+    "What accessibility or performance constraints are explicit?"
+  ],
+  "low_risk_assumptions": [
+    "The surface should work on both desktop and mobile web unless stated otherwise.",
+    "Interactive controls need visible focus and disabled states.",
+    "A landing page needs proof before a late-scroll CTA asks for commitment.",
+    "A dashboard needs a visible default filter or time range."
+  ]
+}

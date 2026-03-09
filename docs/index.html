@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend No-Slop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0f1115;
+      --panel: #171a21;
+      --ink: #e8ecf3;
+      --muted: #a7b0c0;
+      --line: #2a3140;
+      --accent: #76a7ff;
+    }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    h1, h2 { line-height: 1.15; }
+    img { max-width: 100%; display: block; }
+    a { color: var(--accent); }
+    code {
+      background: rgba(255,255,255,0.06);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+    footer {
+      margin-top: 48px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Frontend No-Slop</h1>
+    <p>A portable skill package for grounded frontend design critique, layout planning, component-state discipline, and implementation guidance without generic filler.</p>
+
+    <div class="card">
+      <h2>Highlights</h2>
+      <ul>
+        <li>Progressive disclosure architecture</li>
+        <li>Canonical skill source with lightweight wrappers</li>
+        <li>Forbidden-slop registry</li>
+        <li>JSON output contracts for audits and handoffs</li>
+        <li>Built-in validation and quick audit scripts</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Package diagrams</h2>
+      <img src="assets/hero.svg" alt="Frontend No-Slop hero graphic">
+      <img src="assets/architecture.svg" alt="Architecture diagram for the Frontend No-Slop skill">
+    </div>
+
+    <div class="card">
+      <h2>Key files</h2>
+      <p>Start with <code>SKILL.md</code>, then route to the canonical source in <code>.agents/skills/frontend-no-slop/SKILL.md</code>.</p>
+      <p>The full repository guide lives in <code>README.md</code>, and the technical audit summary lives in <code>AUDIT_REPORT.md</code>.</p>
+    </div>
+
+    <footer>
+      Created by Iamemily2050 · <a href="https://github.com/Emily2040">GitHub: Emily2040</a> · <a href="https://Iamemily2050.com">Iamemily2050.com</a>
+    </footer>
+  </main>
+</body>
+</html>

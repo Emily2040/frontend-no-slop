@@ -1,0 +1,47 @@
+{
+  "page_type": "dashboard",
+  "summary": "The dashboard hides key context and actions. It needs visible filter state, clearer table actions, and non-blank empty or loading states.",
+  "evidence": [
+    "Filters are hidden behind a funnel icon, so the active state is easy to miss.",
+    "Row actions only appear on hover, which blocks keyboard discovery.",
+    "Empty states are blank panels with no guidance."
+  ],
+  "fixes": [
+    {
+      "priority": "p0",
+      "issue": "Active date range is not visible.",
+      "action": "Expose the current date range next to the page title and show the filter bar by default on desktop."
+    },
+    {
+      "priority": "p0",
+      "issue": "Row actions are hover-only.",
+      "action": "Keep a persistent actions column or a clearly labeled overflow menu that is keyboard reachable."
+    },
+    {
+      "priority": "p1",
+      "issue": "Blank empty states create dead ends.",
+      "action": "Add explanatory empty-state copy with the likely cause and a direct recovery action."
+    }
+  ],
+  "state_gaps": [
+    "No visible loading skeleton for KPI cards.",
+    "No empty state for a chart with zero results.",
+    "No clear selected-row or focused-row treatment in the table."
+  ],
+  "a11y_flags": [
+    "Hover-only row actions hide controls from keyboard users.",
+    "The filter icon alone may not provide a clear accessible name without supporting text."
+  ],
+  "performance_flags": [
+    "Chart-first rendering may delay access to the more actionable ticket table.",
+    "If KPI cards fetch separately, the page needs stable loading placeholders to avoid layout jump."
+  ],
+  "copy_flags": [
+    "The filter control should name the active date range in visible text.",
+    "Empty states need action-oriented copy instead of decorative blanks."
+  ],
+  "next_steps": [
+    "Expose filter state in the default layout and make row actions persistent.",
+    "Design loading, empty, and zero-result states for KPI cards, chart, and table."
+  ]
+}

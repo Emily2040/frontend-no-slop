@@ -1,0 +1,128 @@
+{
+  "page_types": [
+    {
+      "name": "landing-page",
+      "primary_user_job": "Understand the offer quickly and choose a meaningful next step.",
+      "critical_elements": [
+        "clear promise",
+        "proof",
+        "primary CTA",
+        "secondary path",
+        "objection handling"
+      ],
+      "slop_traps": [
+        "giant empty hero",
+        "buzzword feature grid",
+        "proof with no context",
+        "CTA overload"
+      ],
+      "failure_modes": [
+        "buried product evidence",
+        "copy that says little",
+        "sections that do not advance the decision"
+      ]
+    },
+    {
+      "name": "dashboard",
+      "primary_user_job": "Read current state, detect change, and act without hunting for controls.",
+      "critical_elements": [
+        "status summary",
+        "filters",
+        "time context",
+        "table or chart detail",
+        "row or drill-in actions"
+      ],
+      "slop_traps": [
+        "decorative charts",
+        "neon metrics with no action",
+        "filters hidden in side panels"
+      ],
+      "failure_modes": [
+        "no visible default time range",
+        "weak empty states",
+        "actions detached from the data they affect"
+      ]
+    },
+    {
+      "name": "docs",
+      "primary_user_job": "Find the right answer fast and copy a correct implementation.",
+      "critical_elements": [
+        "clear information scent",
+        "version context",
+        "working examples",
+        "copyable code",
+        "next-step links"
+      ],
+      "slop_traps": [
+        "marketing headlines inside docs",
+        "walls of text",
+        "missing prerequisites"
+      ],
+      "failure_modes": [
+        "buried examples",
+        "unclear navigation",
+        "no expected output or result"
+      ]
+    },
+    {
+      "name": "settings",
+      "primary_user_job": "Change configuration safely and understand side effects before saving.",
+      "critical_elements": [
+        "grouping",
+        "destructive action separation",
+        "defaults",
+        "help text",
+        "confirmation and rollback paths"
+      ],
+      "slop_traps": [
+        "dense unlabeled forms",
+        "dangerous actions near routine actions"
+      ],
+      "failure_modes": [
+        "unclear scope",
+        "missing save state",
+        "no warning for irreversible actions"
+      ]
+    },
+    {
+      "name": "onboarding",
+      "primary_user_job": "Complete setup with low anxiety and visible progress.",
+      "critical_elements": [
+        "step framing",
+        "progress",
+        "requirements",
+        "success cues",
+        "escape or skip rules"
+      ],
+      "slop_traps": [
+        "cute illustrations instead of guidance",
+        "unclear completion criteria"
+      ],
+      "failure_modes": [
+        "too many fields upfront",
+        "no explanation of why information is needed"
+      ]
+    },
+    {
+      "name": "data-table",
+      "primary_user_job": "Scan, compare, filter, and act on rows efficiently.",
+      "critical_elements": [
+        "column clarity",
+        "filtering",
+        "sorting",
+        "density control",
+        "bulk actions",
+        "empty/loading states"
+      ],
+      "slop_traps": [
+        "pretty table with weak utility",
+        "actions hidden in hover only"
+      ],
+      "failure_modes": [
+        "truncation without reveal",
+        "no keyboard row action path",
+        "mobile collapse that loses meaning"
+      ]
+    }
+  ]
+}

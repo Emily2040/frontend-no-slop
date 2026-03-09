@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Frontend No-Slop hero</title>
+  <desc id="desc">A dark interface graphic showing grounded UI review and structured output.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0f1115"/>
+      <stop offset="100%" stop-color="#171c25"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" x2="1">
+      <stop offset="0%" stop-color="#76a7ff"/>
+      <stop offset="100%" stop-color="#8de4c6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="680" fill="url(#bg)"/>
+  <rect x="56" y="56" width="1088" height="568" rx="28" fill="#11151c" stroke="#2d3748"/>
+  <text x="96" y="128" fill="#f3f5f8" font-size="44" font-family="Inter, Arial, sans-serif" font-weight="700">Frontend No-Slop</text>
+  <text x="96" y="170" fill="#a7b0c0" font-size="24" font-family="Inter, Arial, sans-serif">Evidence in. Concrete UI decisions out.</text>
+
+  <rect x="96" y="220" width="460" height="312" rx="20" fill="#171d27" stroke="#2d3748"/>
+  <text x="124" y="264" fill="#76a7ff" font-size="20" font-family="Inter, Arial, sans-serif">Audit lens</text>
+  <text x="124" y="312" fill="#ecf1f7" font-size="28" font-family="Inter, Arial, sans-serif" font-weight="600">Landing page or dashboard?</text>
+  <text x="124" y="356" fill="#c8d0db" font-size="20" font-family="Inter, Arial, sans-serif">Primary task, proof, CTA, states, accessibility, performance.</text>
+
+  <rect x="124" y="392" width="404" height="18" rx="9" fill="#202938"/>
+  <rect x="124" y="392" width="284" height="18" rx="9" fill="url(#accent)"/>
+  <rect x="124" y="432" width="260" height="14" rx="7" fill="#293244"/>
+  <rect x="124" y="460" width="342" height="14" rx="7" fill="#293244"/>
+  <rect x="124" y="488" width="218" height="14" rx="7" fill="#293244"/>
+
+  <rect x="604" y="220" width="500" height="312" rx="20" fill="#171d27" stroke="#2d3748"/>
+  <text x="632" y="264" fill="#8de4c6" font-size="20" font-family="Inter, Arial, sans-serif">Structured output</text>
+  <text x="632" y="314" fill="#f3f5f8" font-size="26" font-family="monospace">{</text>
+  <text x="670" y="314" fill="#f3f5f8" font-size="22" font-family="monospace">"page_type": "dashboard",</text>
+  <text x="670" y="350" fill="#f3f5f8" font-size="22" font-family="monospace">"fixes": [ ... ],</text>
+  <text x="670" y="386" fill="#f3f5f8" font-size="22" font-family="monospace">"a11y_flags": [ ... ],</text>
+  <text x="670" y="422" fill="#f3f5f8" font-size="22" font-family="monospace">"performance_flags": [ ... ]</text>
+  <text x="632" y="458" fill="#f3f5f8" font-size="26" font-family="monospace">}</text>
+
+  <rect x="632" y="486" width="178" height="24" rx="12" fill="#202938"/>
+  <rect x="820" y="486" width="148" height="24" rx="12" fill="#202938"/>
+  <rect x="978" y="486" width="96" height="24" rx="12" fill="#202938"/>
+</svg>

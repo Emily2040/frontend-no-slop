@@ -1,0 +1,273 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Frontend No-Slop Authoring Output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_type",
+    "page_type",
+    "grounding",
+    "design_principles",
+    "layout_plan",
+    "components",
+    "content_guidance",
+    "a11y_and_performance",
+    "risks",
+    "next_actions"
+  ],
+  "properties": {
+    "task_type": {
+      "type": "string",
+      "enum": [
+        "design",
+        "critique",
+        "refactor",
+        "implementation-plan",
+        "design-system",
+        "copy-rewrite"
+      ]
+    },
+    "page_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "grounding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "known_facts",
+        "explicit_constraints",
+        "labeled_assumptions"
+      ],
+      "properties": {
+        "known_facts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "explicit_constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "labeled_assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "design_principles": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "layout_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary_goal",
+        "section_order",
+        "hierarchy_notes",
+        "responsive_strategy"
+      ],
+      "properties": {
+        "primary_goal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "section_order": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "type": "string"
+          }
+        },
+        "hierarchy_notes": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string"
+          }
+        },
+        "responsive_strategy": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "components": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "purpose",
+          "states",
+          "accessibility_notes",
+          "implementation_notes"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "purpose": {
+            "type": "string",
+            "minLength": 1
+          },
+          "states": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "accessibility_notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "implementation_notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "content_guidance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "headline",
+        "primary_cta",
+        "secondary_cta",
+        "microcopy_rules",
+        "banned_phrases"
+      ],
+      "properties": {
+        "headline": {
+          "type": "string",
+          "minLength": 1
+        },
+        "primary_cta": {
+          "type": "string",
+          "minLength": 1
+        },
+        "secondary_cta": {
+          "type": "string",
+          "minLength": 1
+        },
+        "microcopy_rules": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string"
+          }
+        },
+        "banned_phrases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "a11y_and_performance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantic_html",
+        "keyboard_and_focus",
+        "screen_reader_notes",
+        "motion_and_color",
+        "performance_actions"
+      ],
+      "properties": {
+        "semantic_html": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "keyboard_and_focus": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "screen_reader_notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "motion_and_color": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "performance_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "severity",
+          "issue",
+          "reason"
+        ],
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "issue": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "next_actions": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}
