@@ -10,3 +10,8 @@ Cover:
 - performance risks
 - copy problems
 - top fixes in priority order
+
+For each finding include:
+- severity (`high`, `medium`, `low`)
+- evidence (specific file path, screenshot area, or URL)
+- recommended fix (implementation-level)

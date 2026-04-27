@@ -9,6 +9,16 @@ Grounded frontend design and implementation guidance for agents that keeps UI wo
 
 ![Frontend No-Slop hero](docs/assets/hero.svg)
 
+## Quick start
+
+```bash
+git clone https://github.com/Emily2040/frontend-no-slop.git
+cd frontend-no-slop
+cp AGENTS.md /path/to/project/
+cp -R .agents /path/to/project/
+python scripts/validate_repo.py
+```
+
 ## What this is for
 
 Use this skill when an agent needs to:
@@ -18,6 +28,15 @@ Use this skill when an agent needs to:
 - define design-system primitives, states, variants, and responsive behavior
 - rewrite UI copy so it becomes literal and useful instead of mushy marketing vapor
 - audit a screen before deployment with structural and packaging checks
+
+## Non-goals (when not to use this skill)
+
+Avoid this skill for:
+
+- backend API design, data modeling, and infrastructure architecture
+- database performance tuning and query optimization
+- brand strategy or creative direction with no interface artifact
+- legal/compliance interpretation that needs specialist review
 
 ## What it actively blocks
 
@@ -64,6 +83,7 @@ The package follows progressive disclosure and a canonical-source wrapper layout
 ├── LICENSE
 ├── .gitignore
 ├── AUDIT_REPORT.md
+├── CHANGELOG.md
 ├── docs/
 ├── templates/
 ├── scripts/
@@ -119,8 +139,10 @@ cp -R .agents /path/to/project/
 - [Authoring schema](.agents/skills/frontend-no-slop/schemas/authoring-base.json)
 - [Compact schema](.agents/skills/frontend-no-slop/schemas/runtime-compact.json)
 - [Audit report](AUDIT_REPORT.md)
+- [Changelog](CHANGELOG.md)
 - [Quick audit script](scripts/quick_audit.sh)
 - [Validator](scripts/validate_repo.py)
+- [Docs checker](scripts/check_docs.py)
 - [Static docs page](docs/index.html)
 
 ## Validation
@@ -130,6 +152,7 @@ Install the dev dependencies and run:
 ```bash
 python -m pip install -r requirements-dev.txt
 python scripts/validate_repo.py
+python scripts/check_docs.py
 bash scripts/quick_audit.sh
 ```
 
@@ -143,6 +166,7 @@ The validator checks:
 - author identity consistency
 - broken internal links
 - schema and example validity
+- negative schema fixtures (expected failures)
 - cache and duplicate-entrypoint problems
 
 ## Author

@@ -4,77 +4,272 @@
   <meta charset="utf-8">
   <title>Frontend No-Slop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Frontend No-Slop is a portable skill package for grounded UI critique, component-state discipline, accessibility review, and implementation planning.">
+  <meta property="og:title" content="Frontend No-Slop">
+  <meta property="og:description" content="Grounded frontend design guidance without generic filler.">
+  <meta property="og:image" content="assets/hero.svg">
+  <meta property="og:type" content="website">
   <style>
     :root {
-      color-scheme: light dark;
-      --bg: #0f1115;
-      --panel: #171a21;
-      --ink: #e8ecf3;
-      --muted: #a7b0c0;
-      --line: #2a3140;
-      --accent: #76a7ff;
+      color-scheme: dark;
+      --bg: #090c12;
+      --panel: #111724;
+      --panel-2: #172033;
+      --ink: #ecf1f8;
+      --muted: #a4b0c3;
+      --line: #2d3a53;
+      --blue: #77a6ff;
+      --mint: #7ce6c8;
+      --amber: #ffc867;
+      --danger: #ff7a90;
+      --ok: #7ce6c8;
+      --shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
     }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-      background: var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+      background:
+        radial-gradient(900px 600px at 80% -10%, #1d2b45 0%, transparent 60%),
+        radial-gradient(700px 500px at -10% -20%, #12303f 0%, transparent 58%),
+        var(--bg);
       color: var(--ink);
       line-height: 1.55;
     }
-    main {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 40px 20px 80px;
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 8px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      padding: 10px 14px;
+      border-radius: 10px;
+      z-index: 100;
     }
+    .skip-link:focus { left: 12px; }
+
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 28px 20px 80px;
+    }
+
+    .hero {
+      background: linear-gradient(165deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--mint);
+      background: rgba(124, 230, 200, 0.12);
+      border: 1px solid rgba(124, 230, 200, 0.35);
+      border-radius: 999px;
+      padding: 4px 10px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.15;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 70ch;
+      margin: 12px 0 0;
+    }
+
+    .metrics {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+    }
+
+    .metric strong { display: block; font-size: 1.05rem; }
+    .metric span { color: var(--muted); font-size: 0.9rem; }
+
+    .grid {
+      margin-top: 20px;
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+
     .card {
       background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 20px;
-      margin: 20px 0;
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
     }
-    h1, h2 { line-height: 1.15; }
-    img { max-width: 100%; display: block; }
-    a { color: var(--accent); }
-    code {
-      background: rgba(255,255,255,0.06);
-      padding: 2px 6px;
-      border-radius: 6px;
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      line-height: 1.2;
+      font-size: 1.25rem;
     }
-    footer {
-      margin-top: 48px;
+
+    .col-7 { grid-column: span 7; }
+    .col-5 { grid-column: span 5; }
+    .col-12 { grid-column: span 12; }
+
+    .list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .list li { margin: 8px 0; }
+
+    .pill-row {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      font-size: 0.84rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--panel-2);
       color: var(--muted);
+    }
+
+    figure { margin: 0; }
+    img {
+      max-width: 100%;
+      display: block;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #0b1019;
+    }
+    figcaption {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .status {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .status li { margin: 8px 0; }
+
+    .status strong { color: var(--ink); }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      padding: 2px 6px;
+      color: #f9fbff;
+    }
+
+    a { color: var(--blue); }
+
+    footer {
+      margin-top: 28px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
       font-size: 0.95rem;
+    }
+
+    @media (max-width: 880px) {
+      .col-7, .col-5 { grid-column: span 12; }
     }
   </style>
 </head>
 <body>
-  <main>
-    <h1>Frontend No-Slop</h1>
-    <p>A portable skill package for grounded frontend design critique, layout planning, component-state discipline, and implementation guidance without generic filler.</p>
+  <a class="skip-link" href="#content">Skip to main content</a>
+  <main id="content" aria-label="Frontend No-Slop documentation overview">
+    <header class="hero" aria-labelledby="hero-title">
+      <span class="eyebrow">Skill package</span>
+      <h1 id="hero-title">Frontend No-Slop</h1>
+      <p>Concrete UI critique and planning for real interfaces. It forces evidence, explicit states, and implementation-level output instead of decorative design language.</p>
+      <div class="metrics" aria-label="Package metrics">
+        <div class="metric"><strong>7 core modules</strong><span>Structured critique pipeline</span></div>
+        <div class="metric"><strong>3 registries</strong><span>Evidence + anti-slop controls</span></div>
+        <div class="metric"><strong>2 schemas</strong><span>Authoring + compact contracts</span></div>
+        <div class="metric"><strong>CI validated</strong><span>Repo + docs checks</span></div>
+      </div>
+    </header>
 
-    <div class="card">
-      <h2>Highlights</h2>
-      <ul>
-        <li>Progressive disclosure architecture</li>
-        <li>Canonical skill source with lightweight wrappers</li>
-        <li>Forbidden-slop registry</li>
-        <li>JSON output contracts for audits and handoffs</li>
-        <li>Built-in validation and quick audit scripts</li>
-      </ul>
-    </div>
+    <section class="grid" aria-label="Main content blocks">
+      <article class="card col-7" aria-labelledby="what-heading">
+        <h2 id="what-heading">What this package is optimized for</h2>
+        <ul class="list">
+          <li>Landing page and dashboard critique anchored in real task flow.</li>
+          <li>Component specs with empty/loading/error/success/disabled state coverage.</li>
+          <li>Accessibility and performance risk surfacing with practical mitigation.</li>
+          <li>Implementation plans that map to code and handoff artifacts.</li>
+        </ul>
+        <div class="pill-row" aria-label="Supported surface tags">
+          <span class="pill">landing page</span>
+          <span class="pill">dashboard</span>
+          <span class="pill">settings</span>
+          <span class="pill">table</span>
+          <span class="pill">forms</span>
+          <span class="pill">modals</span>
+        </div>
+      </article>
 
-    <div class="card">
-      <h2>Package diagrams</h2>
-      <img src="assets/hero.svg" alt="Frontend No-Slop hero graphic">
-      <img src="assets/architecture.svg" alt="Architecture diagram for the Frontend No-Slop skill">
-    </div>
+      <article class="card col-5" aria-labelledby="hygiene-heading">
+        <h2 id="hygiene-heading">Quality gates</h2>
+        <ul class="status">
+          <li><strong style="color: var(--ok);">Pass condition:</strong> no placeholders, valid schemas, linked wrappers, docs integrity.</li>
+          <li><strong style="color: var(--amber);">Review condition:</strong> weak evidence, missing state logic, vague copy.</li>
+          <li><strong style="color: var(--danger);">Fail condition:</strong> broken structure, invalid outputs, or anti-slop violations.</li>
+        </ul>
+      </article>
 
-    <div class="card">
-      <h2>Key files</h2>
-      <p>Start with <code>SKILL.md</code>, then route to the canonical source in <code>.agents/skills/frontend-no-slop/SKILL.md</code>.</p>
-      <p>The full repository guide lives in <code>README.md</code>, and the technical audit summary lives in <code>AUDIT_REPORT.md</code>.</p>
-    </div>
+      <article class="card col-12" aria-labelledby="visuals-heading">
+        <h2 id="visuals-heading">Skill visuals and infographics</h2>
+        <div class="grid" style="margin-top: 0;">
+          <figure class="col-7">
+            <img src="assets/hero.svg" alt="Hero infographic showing evidence inputs, orchestration, and output contracts.">
+            <figcaption>V2 hero infographic: intake signals, orchestration logic, and concrete output contracts.</figcaption>
+          </figure>
+          <figure class="col-5">
+            <img src="assets/workflow.svg" alt="Workflow infographic showing intake, anti-slop checks, and validated output.">
+            <figcaption>Execution flow with state and evidence checks at each stage.</figcaption>
+          </figure>
+          <figure class="col-12">
+            <img src="assets/architecture.svg" alt="Architecture map of wrappers, canonical source, modules, registries, schemas, and validation.">
+            <figcaption>System map for maintainers and adapter authors.</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="card col-12" aria-labelledby="start-heading">
+        <h2 id="start-heading">Start path</h2>
+        <p>Begin at <code>SKILL.md</code>, then route to <code>.agents/skills/frontend-no-slop/SKILL.md</code>. For quick checks run <code>python scripts/validate_repo.py</code> and <code>python scripts/check_docs.py</code>.</p>
+      </article>
+    </section>
 
     <footer>
       Created by Iamemily2050 · <a href="https://github.com/Emily2040">GitHub: Emily2040</a> · <a href="https://Iamemily2050.com">Iamemily2050.com</a>

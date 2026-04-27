@@ -18,5 +18,11 @@ Framework, brand, accessibility, responsive, or business constraints.
 ## Existing Assets
 Code, screenshots, wireframes, tokens, or none.
 
+## Acceptance Criteria
+Define measurable checks (for example: "User can complete flow in <=3 steps", "AA contrast on all text", "Empty/loading/error/success states documented").
+
+## Out of Scope
+List explicitly excluded work to avoid scope creep.
+
 ## Required Output
 Design critique, page plan, component spec, copy rewrite, or implementation plan.

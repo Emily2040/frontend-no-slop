@@ -1,55 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
-  <title id="title">Frontend No-Slop architecture</title>
-  <desc id="desc">Diagram showing wrappers, canonical skill, orchestrator, modules, registries, schemas, and validation.</desc>
-  <rect width="1200" height="760" fill="#0f1115"/>
-  <text x="72" y="80" fill="#f3f5f8" font-size="40" font-family="Inter, Arial, sans-serif" font-weight="700">Skill architecture</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="920" viewBox="0 0 1400 920" role="img" aria-labelledby="title desc">
+  <title id="title">Frontend No-Slop architecture infographic</title>
+  <desc id="desc">Layered architecture view of wrappers, canonical source, orchestrator, core modules, registries, schemas, examples, and validation automation.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0a0f18"/>
+      <stop offset="100%" stop-color="#10192b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="920" fill="url(#bg)"/>
 
   <g font-family="Inter, Arial, sans-serif">
-    <rect x="72" y="132" width="240" height="110" rx="18" fill="#171d27" stroke="#2d3748"/>
-    <text x="96" y="176" fill="#76a7ff" font-size="22">Root wrappers</text>
-    <text x="96" y="214" fill="#d9e0ea" font-size="18">SKILL.md</text>
-    <text x="96" y="238" fill="#d9e0ea" font-size="18">AGENTS / CLAUDE / GEMINI</text>
+    <text x="70" y="80" fill="#ecf1f8" font-size="44" font-weight="700">Frontend No-Slop architecture (V2)</text>
+    <text x="70" y="118" fill="#9fb0c8" font-size="22">Progressive disclosure flow from adapters to validated output contracts</text>
 
-    <rect x="372" y="132" width="280" height="110" rx="18" fill="#171d27" stroke="#2d3748"/>
-    <text x="396" y="176" fill="#8de4c6" font-size="22">Canonical source</text>
-    <text x="396" y="214" fill="#d9e0ea" font-size="18">.agents/skills/frontend-no-slop/SKILL.md</text>
+    <rect x="70" y="160" width="1260" height="120" rx="18" fill="#122035" stroke="#2f4264"/>
+    <text x="96" y="206" fill="#77a6ff" font-size="24" font-weight="600">Adapter layer</text>
+    <text x="96" y="244" fill="#ecf1f8" font-size="20">SKILL.md • AGENTS.md • CLAUDE.md • GEMINI.md • .cursorrules • .clinerules</text>
 
-    <rect x="712" y="132" width="250" height="110" rx="18" fill="#171d27" stroke="#2d3748"/>
-    <text x="736" y="176" fill="#ffd166" font-size="22">Orchestrator</text>
-    <text x="736" y="214" fill="#d9e0ea" font-size="18">references/00-orchestrator.md</text>
+    <rect x="70" y="314" width="1260" height="120" rx="18" fill="#14253c" stroke="#2f4264"/>
+    <text x="96" y="360" fill="#7ce6c8" font-size="24" font-weight="600">Canonical router + orchestrator</text>
+    <text x="96" y="398" fill="#ecf1f8" font-size="20">.agents/skills/frontend-no-slop/SKILL.md → references/00-orchestrator.md</text>
 
-    <rect x="72" y="318" width="320" height="252" rx="18" fill="#171d27" stroke="#2d3748"/>
-    <text x="96" y="362" fill="#76a7ff" font-size="22">Core modules</text>
-    <text x="96" y="404" fill="#d9e0ea" font-size="18">01 intake + grounding</text>
-    <text x="96" y="438" fill="#d9e0ea" font-size="18">02 slop scrubber</text>
-    <text x="96" y="472" fill="#d9e0ea" font-size="18">03 layout + visual logic</text>
-    <text x="96" y="506" fill="#d9e0ea" font-size="18">04 state discipline</text>
-    <text x="96" y="540" fill="#d9e0ea" font-size="18">05 a11y + performance + content</text>
+    <rect x="70" y="468" width="620" height="290" rx="18" fill="#162843" stroke="#2f4264"/>
+    <text x="96" y="510" fill="#ffc867" font-size="24" font-weight="600">Core execution modules</text>
+    <text x="96" y="548" fill="#ecf1f8" font-size="19">01 intake and grounding</text>
+    <text x="96" y="578" fill="#ecf1f8" font-size="19">02 slop scrubber</text>
+    <text x="96" y="608" fill="#ecf1f8" font-size="19">03 layout and visual logic</text>
+    <text x="96" y="638" fill="#ecf1f8" font-size="19">04 component state discipline</text>
+    <text x="96" y="668" fill="#ecf1f8" font-size="19">05 a11y, performance, content</text>
+    <text x="96" y="698" fill="#ecf1f8" font-size="19">06 page type lenses</text>
+    <text x="96" y="728" fill="#ecf1f8" font-size="19">07 output contract shaping</text>
 
-    <rect x="440" y="318" width="300" height="252" rx="18" fill="#171d27" stroke="#2d3748"/>
-    <text x="464" y="362" fill="#8de4c6" font-size="22">Registries</text>
-    <text x="464" y="404" fill="#d9e0ea" font-size="18">forbidden-slop.json</text>
-    <text x="464" y="438" fill="#d9e0ea" font-size="18">page-type-lenses.json</text>
-    <text x="464" y="472" fill="#d9e0ea" font-size="18">frontend-evidence-prompts.json</text>
+    <rect x="710" y="468" width="620" height="132" rx="18" fill="#162843" stroke="#2f4264"/>
+    <text x="736" y="510" fill="#77a6ff" font-size="24" font-weight="600">Registries</text>
+    <text x="736" y="548" fill="#ecf1f8" font-size="19">forbidden-slop.json • page-type-lenses.json • frontend-evidence-prompts.json</text>
 
-    <rect x="788" y="318" width="320" height="252" rx="18" fill="#171d27" stroke="#2d3748"/>
-    <text x="812" y="362" fill="#ffd166" font-size="22">Contracts + examples</text>
-    <text x="812" y="404" fill="#d9e0ea" font-size="18">authoring-base.json</text>
-    <text x="812" y="438" fill="#d9e0ea" font-size="18">runtime-compact.json</text>
-    <text x="812" y="472" fill="#d9e0ea" font-size="18">landing-page-output.json</text>
-    <text x="812" y="506" fill="#d9e0ea" font-size="18">dashboard-audit-output.json</text>
+    <rect x="710" y="626" width="620" height="132" rx="18" fill="#162843" stroke="#2f4264"/>
+    <text x="736" y="668" fill="#7ce6c8" font-size="24" font-weight="600">Contracts + examples</text>
+    <text x="736" y="706" fill="#ecf1f8" font-size="19">authoring-base.json • runtime-compact.json • example outputs (+ invalid fixtures)</text>
 
-    <rect x="320" y="620" width="560" height="90" rx="18" fill="#171d27" stroke="#2d3748"/>
-    <text x="344" y="662" fill="#f3f5f8" font-size="24">Validation layer</text>
-    <text x="344" y="694" fill="#d9e0ea" font-size="18">scripts/validate_repo.py • scripts/quick_audit.sh • GitHub Actions</text>
+    <rect x="70" y="790" width="1260" height="90" rx="16" fill="#1a2d4a" stroke="#2f4264"/>
+    <text x="96" y="842" fill="#ecf1f8" font-size="24">Validation layer: scripts/validate_repo.py • scripts/check_docs.py • scripts/quick_audit.sh • GitHub Actions</text>
 
-    <path d="M312 186H372" stroke="#4c5c72" stroke-width="4"/>
-    <path d="M652 186H712" stroke="#4c5c72" stroke-width="4"/>
-    <path d="M837 242V286H232V318" stroke="#4c5c72" stroke-width="4" fill="none"/>
-    <path d="M837 242V286H590V318" stroke="#4c5c72" stroke-width="4" fill="none"/>
-    <path d="M837 242V286H948V318" stroke="#4c5c72" stroke-width="4" fill="none"/>
-    <path d="M232 570V620H600" stroke="#4c5c72" stroke-width="4" fill="none"/>
-    <path d="M590 570V620" stroke="#4c5c72" stroke-width="4" fill="none"/>
-    <path d="M948 570V620H600" stroke="#4c5c72" stroke-width="4" fill="none"/>
+    <path d="M700 280V314" stroke="#47638d" stroke-width="4"/>
+    <path d="M380 434V468" stroke="#47638d" stroke-width="4"/>
+    <path d="M1020 434V468" stroke="#47638d" stroke-width="4"/>
+    <path d="M1020 600V626" stroke="#47638d" stroke-width="4"/>
+    <path d="M380 758V790" stroke="#47638d" stroke-width="4"/>
+    <path d="M1020 758V790" stroke="#47638d" stroke-width="4"/>
   </g>
 </svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 900 620" role="img" aria-labelledby="title desc">
+  <title id="title">Frontend No-Slop workflow infographic</title>
+  <desc id="desc">Five-step flow: intake, triage mode, anti-slop checks, state and accessibility review, and final output contract.</desc>
+  <rect width="900" height="620" fill="#0b111c"/>
+  <g font-family="Inter, Arial, sans-serif">
+    <text x="42" y="58" fill="#ecf1f8" font-size="34" font-weight="700">Workflow snapshot</text>
+    <text x="42" y="88" fill="#9fb0c8" font-size="18">Each step blocks vague output and demands evidence-backed guidance.</text>
+
+    <rect x="42" y="130" width="816" height="86" rx="14" fill="#162843" stroke="#2f4264"/>
+    <circle cx="84" cy="173" r="20" fill="#77a6ff"/>
+    <text x="76" y="180" fill="#08111d" font-size="18" font-weight="700">1</text>
+    <text x="118" y="168" fill="#ecf1f8" font-size="21" font-weight="600">Intake</text>
+    <text x="118" y="194" fill="#9fb0c8" font-size="17">Collect brief, code, screenshots, constraints, and user job.</text>
+
+    <rect x="42" y="236" width="816" height="86" rx="14" fill="#162843" stroke="#2f4264"/>
+    <circle cx="84" cy="279" r="20" fill="#7ce6c8"/>
+    <text x="76" y="286" fill="#08111d" font-size="18" font-weight="700">2</text>
+    <text x="118" y="274" fill="#ecf1f8" font-size="21" font-weight="600">Mode + lens</text>
+    <text x="118" y="300" fill="#9fb0c8" font-size="17">Select critique/design/refactor path and page-type lens.</text>
+
+    <rect x="42" y="342" width="816" height="86" rx="14" fill="#162843" stroke="#2f4264"/>
+    <circle cx="84" cy="385" r="20" fill="#ffc867"/>
+    <text x="76" y="392" fill="#08111d" font-size="18" font-weight="700">3</text>
+    <text x="118" y="380" fill="#ecf1f8" font-size="21" font-weight="600">Anti-slop checks</text>
+    <text x="118" y="406" fill="#9fb0c8" font-size="17">Reject vague praise, fake metrics, and style-only recommendations.</text>
+
+    <rect x="42" y="448" width="816" height="86" rx="14" fill="#162843" stroke="#2f4264"/>
+    <circle cx="84" cy="491" r="20" fill="#ff7a90"/>
+    <text x="76" y="498" fill="#08111d" font-size="18" font-weight="700">4</text>
+    <text x="118" y="486" fill="#ecf1f8" font-size="21" font-weight="600">State + a11y review</text>
+    <text x="118" y="512" fill="#9fb0c8" font-size="17">Cover empty/loading/error/success + mobile + semantics/perf risks.</text>
+
+    <path d="M450 216V236M450 322V342M450 428V448" stroke="#4a6288" stroke-width="3"/>
+  </g>
+</svg>
