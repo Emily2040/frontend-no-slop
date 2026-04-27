@@ -1,13 +1,12 @@
-\
 from __future__ import annotations
 
 import json
 import re
-import sys
 from pathlib import Path
 
 import yaml
 from jsonschema import Draft202012Validator, validate
+from jsonschema.exceptions import ValidationError
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL_ROOT = ROOT / ".agents/skills/frontend-no-slop"
@@ -37,12 +36,15 @@ REQUIRED_FILES = [
     ROOT / ".gitignore",
     ROOT / "requirements-dev.txt",
     ROOT / "AUDIT_REPORT.md",
+    ROOT / "CHANGELOG.md",
     ROOT / "docs/index.html",
     ROOT / "docs/assets/hero.svg",
     ROOT / "docs/assets/architecture.svg",
+    ROOT / "docs/assets/workflow.svg",
     ROOT / "scripts/validate_repo.py",
     ROOT / "scripts/sync_adapters.py",
     ROOT / "scripts/quick_audit.sh",
+    ROOT / "scripts/check_docs.py",
     ROOT / ".github/workflows/validate.yml",
     ROOT / "templates/frontend-brief.md",
     ROOT / "templates/ui-audit-prompt.md",
@@ -64,6 +66,8 @@ REQUIRED_FILES = [
     SKILL_ROOT / "examples/landing-page-output.json",
     SKILL_ROOT / "examples/dashboard-audit-input.md",
     SKILL_ROOT / "examples/dashboard-audit-output.json",
+    SKILL_ROOT / "examples/invalid-landing-page-output.json",
+    SKILL_ROOT / "examples/invalid-dashboard-audit-output.json",
 ]
 
 errors: list[str] = []
@@ -79,7 +83,7 @@ def check(condition: bool, message: str) -> None:
 
 
 def read_text(path: Path) -> str:
-    return path.read_text(encoding="utf-8")
+    return path.read_text(encoding="utf-8", errors="replace")
 
 
 def parse_frontmatter(path: Path) -> tuple[dict, str]:
@@ -160,9 +164,14 @@ def broken_internal_links(markdown_path: Path) -> list[str]:
     return broken
 
 
+def should_scan(path: Path) -> bool:
+    blocked = {".git", ".venv", "venv", "node_modules", "__pycache__"}
+    return not any(part in blocked for part in path.parts)
+
+
 def scan_placeholders() -> None:
     for path in ROOT.rglob("*"):
-        if path.is_dir():
+        if path.is_dir() or not should_scan(path):
             continue
         if path.suffix.lower() not in {".md", ".json", ".html", ".yml", ".yaml"}:
             continue
@@ -174,7 +183,9 @@ def scan_placeholders() -> None:
 def scan_surrogates() -> None:
     pattern = re.compile(r"\\ud[89ab][0-9a-f]{2}", re.IGNORECASE)
     for path in ROOT.rglob("*"):
-        if path.is_dir() or path.suffix.lower() not in {".md", ".yml", ".yaml", ".json", ".html"}:
+        if path.is_dir() or not should_scan(path):
+            continue
+        if path.suffix.lower() not in {".md", ".yml", ".yaml", ".json", ".html"}:
             continue
         check(pattern.search(read_text(path)) is None, f"{path.relative_to(ROOT)} contains a surrogate escape sequence")
 
@@ -182,6 +193,8 @@ def scan_surrogates() -> None:
 def check_no_cache_or_strays() -> None:
     bad_names = {"__pycache__", ".DS_Store", "Skill.md"}
     for path in ROOT.rglob("*"):
+        if not should_scan(path):
+            continue
         if path.name in bad_names:
             add_error(f"Disallowed file or directory present: {path.relative_to(ROOT)}")
 
@@ -214,6 +227,25 @@ def validate_examples() -> None:
         validate(instance=compact_example, schema=compact_schema)
     except Exception as exc:
         add_error(f"dashboard-audit-output.json does not validate against runtime-compact.json: {exc}")
+
+
+def validate_negative_examples() -> None:
+    full_schema = validate_json_file(SKILL_ROOT / "schemas/authoring-base.json")
+    compact_schema = validate_json_file(SKILL_ROOT / "schemas/runtime-compact.json")
+    invalid_full = validate_json_file(SKILL_ROOT / "examples/invalid-landing-page-output.json")
+    invalid_compact = validate_json_file(SKILL_ROOT / "examples/invalid-dashboard-audit-output.json")
+
+    try:
+        validate(instance=invalid_full, schema=full_schema)
+        add_error("invalid-landing-page-output.json unexpectedly passed authoring-base.json")
+    except ValidationError:
+        pass
+
+    try:
+        validate(instance=invalid_compact, schema=compact_schema)
+        add_error("invalid-dashboard-audit-output.json unexpectedly passed runtime-compact.json")
+    except ValidationError:
+        pass
 
 
 def validate_author_consistency() -> None:
@@ -284,6 +316,7 @@ def main() -> int:
     validate_gitignore()
     validate_svg(ROOT / "docs/assets/hero.svg")
     validate_svg(ROOT / "docs/assets/architecture.svg")
+    validate_svg(ROOT / "docs/assets/workflow.svg")
 
     for json_path in [
         SKILL_ROOT / "registry/forbidden-slop.json",
@@ -293,12 +326,15 @@ def main() -> int:
         SKILL_ROOT / "schemas/runtime-compact.json",
         SKILL_ROOT / "examples/landing-page-output.json",
         SKILL_ROOT / "examples/dashboard-audit-output.json",
+        SKILL_ROOT / "examples/invalid-landing-page-output.json",
+        SKILL_ROOT / "examples/invalid-dashboard-audit-output.json",
     ]:
         validate_json_file(json_path)
 
     scan_placeholders()
     scan_surrogates()
     validate_examples()
+    validate_negative_examples()
 
     if errors:
         for error in errors:
