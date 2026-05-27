@@ -214,7 +214,7 @@
       <div class="metrics" aria-label="Package metrics">
         <div class="metric"><strong>7 core modules</strong><span>Structured critique pipeline</span></div>
         <div class="metric"><strong>3 registries</strong><span>Evidence + anti-slop controls</span></div>
-        <div class="metric"><strong>2 schemas</strong><span>Authoring + compact contracts</span></div>
+        <div class="metric"><strong>3 schemas</strong><span>Authoring, compact, and eval contracts</span></div>
         <div class="metric"><strong>CI validated</strong><span>Repo + docs checks</span></div>
       </div>
     </header>
@@ -241,7 +241,7 @@
       <article class="card col-5" aria-labelledby="hygiene-heading">
         <h2 id="hygiene-heading">Quality gates</h2>
         <ul class="status">
-          <li><strong style="color: var(--ok);">Pass condition:</strong> no placeholders, valid schemas, linked wrappers, docs integrity.</li>
+          <li><strong style="color: var(--ok);">Pass condition:</strong> no placeholders, valid schemas, synced adapters, eval coverage, docs integrity.</li>
           <li><strong style="color: var(--amber);">Review condition:</strong> weak evidence, missing state logic, vague copy.</li>
           <li><strong style="color: var(--danger);">Fail condition:</strong> broken structure, invalid outputs, or anti-slop violations.</li>
         </ul>
@@ -267,7 +267,7 @@
 
       <article class="card col-12" aria-labelledby="start-heading">
         <h2 id="start-heading">Start path</h2>
-        <p>Begin at <code>SKILL.md</code>, then route to <code>.agents/skills/frontend-no-slop/SKILL.md</code>. For quick checks run <code>python scripts/validate_repo.py</code> and <code>python scripts/check_docs.py</code>.</p>
+        <p>Begin at <code>SKILL.md</code>, then route to <code>.agents/skills/frontend-no-slop/SKILL.md</code>. For quick checks run <code>python scripts/validate_repo.py</code>, <code>python scripts/sync_adapters.py --check</code>, and <code>python scripts/check_docs.py</code>.</p>
       </article>
     </section>
 

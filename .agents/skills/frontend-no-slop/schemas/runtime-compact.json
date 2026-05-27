@@ -1,6 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/frontend-no-slop/schemas/runtime-compact.json",
   "title": "Frontend No-Slop Runtime Output",
+  "description": "Compact audit output for quick frontend critique with evidence, prioritized fixes, state gaps, accessibility, performance, and copy flags.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -17,7 +19,19 @@
   "properties": {
     "page_type": {
       "type": "string",
-      "minLength": 1
+      "description": "Primary page or surface lens. Values must match the page-type registry.",
+      "enum": [
+        "landing-page",
+        "dashboard",
+        "docs",
+        "settings",
+        "onboarding",
+        "data-table",
+        "form",
+        "modal-dialog",
+        "design-system",
+        "app-shell"
+      ]
     },
     "summary": {
       "type": "string",

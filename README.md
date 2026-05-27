@@ -9,36 +9,67 @@ Grounded frontend design and implementation guidance for agents that keeps UI wo
 
 ![Frontend No-Slop hero](docs/assets/hero.svg)
 
-## Quick start
+## Quick Start
 
 ```bash
 git clone https://github.com/Emily2040/frontend-no-slop.git
 cd frontend-no-slop
-cp AGENTS.md /path/to/project/
-cp -R .agents /path/to/project/
+python -m pip install -r requirements-dev.lock
 python scripts/validate_repo.py
+python scripts/sync_adapters.py --check
+python scripts/check_docs.py
 ```
 
-## What this is for
+For local development without a lock file, install `requirements-dev.txt`. CI uses `requirements-dev.lock` for repeatable validation.
+
+## Install Into Another Project
+
+Copy the canonical skill plus the adapter for your agent:
+
+```bash
+cp -R .agents /path/to/project/
+cp adapters/AGENTS.md /path/to/project/AGENTS.md
+```
+
+PowerShell:
+
+```powershell
+Copy-Item -Recurse -Force .agents C:\path\to\project\
+Copy-Item -Force adapters\AGENTS.md C:\path\to\project\AGENTS.md
+```
+
+Use the matching adapter file for other clients:
+
+| Client | Adapter to copy | Notes |
+| --- | --- | --- |
+| Codex / AGENTS-style loaders | `adapters/AGENTS.md` | Routes the agent to the canonical skill. |
+| Claude Code | `adapters/CLAUDE.md` | Pair with the `.agents` directory or adapt to `.claude/skills/` if desired. |
+| Gemini CLI | `adapters/GEMINI.md` | Keeps the same canonical skill path. |
+| Cursor | `adapters/.cursorrules` | Lightweight project rule wrapper. |
+| Cline | `adapters/.clinerules` | Lightweight project rule wrapper. |
+
+This repo's root `AGENTS.md` is maintainer guidance for this repository. Do not copy it as the consumer adapter.
+
+## What This Is For
 
 Use this skill when an agent needs to:
 
-- design or critique a landing page, dashboard, docs surface, settings page, form, table, modal, or component
+- design or critique a landing page, dashboard, docs surface, settings page, onboarding flow, form, table, modal, app shell, or design-system primitive
 - plan frontend implementation in React, Vue, Svelte, HTML/CSS, or stack-agnostic terms
 - define design-system primitives, states, variants, and responsive behavior
-- rewrite UI copy so it becomes literal and useful instead of mushy marketing vapor
-- audit a screen before deployment with structural and packaging checks
+- rewrite UI copy so it becomes literal and useful instead of generic marketing language
+- audit a screen before deployment with structural, accessibility, performance, and packaging checks
 
-## Non-goals (when not to use this skill)
+## Non-Goals
 
 Avoid this skill for:
 
 - backend API design, data modeling, and infrastructure architecture
 - database performance tuning and query optimization
 - brand strategy or creative direction with no interface artifact
-- legal/compliance interpretation that needs specialist review
+- legal or compliance interpretation that needs specialist review
 
-## What it actively blocks
+## What It Blocks
 
 This skill is opinionated against:
 
@@ -55,14 +86,14 @@ This skill is opinionated against:
 
 The package follows progressive disclosure and a canonical-source wrapper layout:
 
-1. Root `SKILL.md` is a router under the recommended size limit.
-2. `.agents/skills/frontend-no-slop/SKILL.md` is the canonical source.
-3. `references/00-orchestrator.md` loads the right core modules only when needed.
-4. Registries store anti-slop rules and page-type lenses.
-5. JSON schemas define machine-readable output contracts.
-6. Validation scripts and CI keep the package honest.
+1. Root `SKILL.md` is a small router.
+2. `.agents/skills/frontend-no-slop/SKILL.md` is the canonical skill entrypoint.
+3. `references/00-orchestrator.md` loads focused core modules only when needed.
+4. Registries store anti-slop rules, evidence prompts, and page-type lenses.
+5. JSON schemas define machine-readable output contracts and eval manifests.
+6. Validation scripts and CI keep adapters, schemas, examples, docs, and eval fixtures aligned.
 
-## Repository map
+## Repository Map
 
 ```text
 .
@@ -72,7 +103,9 @@ The package follows progressive disclosure and a canonical-source wrapper layout
 │   ├── skills/core/
 │   ├── registry/
 │   ├── schemas/
+│   ├── evals/
 │   └── examples/
+├── adapters/
 ├── SKILL.md
 ├── AGENTS.md
 ├── CLAUDE.md
@@ -80,94 +113,51 @@ The package follows progressive disclosure and a canonical-source wrapper layout
 ├── .cursorrules
 ├── .clinerules
 ├── README.md
-├── LICENSE
-├── .gitignore
+├── ROADMAP.md
 ├── AUDIT_REPORT.md
 ├── CHANGELOG.md
 ├── docs/
 ├── templates/
-├── scripts/
-└── .github/workflows/validate.yml
+└── scripts/
 ```
 
-## Installation
-
-### Generic AGENTS-style loaders
-
-```bash
-git clone https://github.com/Emily2040/frontend-no-slop.git
-cd frontend-no-slop
-cp SKILL.md /path/to/project/
-cp AGENTS.md /path/to/project/
-cp -R .agents /path/to/project/
-```
-
-### Claude Code
-
-```bash
-git clone https://github.com/Emily2040/frontend-no-slop.git
-cd frontend-no-slop
-cp CLAUDE.md /path/to/project/
-cp -R .agents /path/to/project/
-```
-
-### Gemini CLI
-
-```bash
-git clone https://github.com/Emily2040/frontend-no-slop.git
-cd frontend-no-slop
-cp GEMINI.md /path/to/project/
-cp -R .agents /path/to/project/
-```
-
-### Cursor or Cline
-
-```bash
-git clone https://github.com/Emily2040/frontend-no-slop.git
-cd frontend-no-slop
-cp .cursorrules /path/to/project/
-cp .clinerules /path/to/project/
-cp -R .agents /path/to/project/
-```
-
-## Key files
+## Key Files
 
 - [Root router](SKILL.md)
+- [Maintainer instructions](AGENTS.md)
 - [Canonical skill](.agents/skills/frontend-no-slop/SKILL.md)
+- [Consumer adapters](adapters/AGENTS.md)
 - [Orchestrator](.agents/skills/frontend-no-slop/references/00-orchestrator.md)
 - [Forbidden slop registry](.agents/skills/frontend-no-slop/registry/forbidden-slop.json)
+- [Page-type lenses](.agents/skills/frontend-no-slop/registry/page-type-lenses.json)
 - [Authoring schema](.agents/skills/frontend-no-slop/schemas/authoring-base.json)
 - [Compact schema](.agents/skills/frontend-no-slop/schemas/runtime-compact.json)
-- [Audit report](AUDIT_REPORT.md)
-- [Changelog](CHANGELOG.md)
-- [Quick audit script](scripts/quick_audit.sh)
+- [Eval suite schema](.agents/skills/frontend-no-slop/schemas/eval-suite.json)
+- [Eval cases](.agents/skills/frontend-no-slop/evals/frontend-no-slop-evals.json)
 - [Validator](scripts/validate_repo.py)
+- [Adapter sync](scripts/sync_adapters.py)
 - [Docs checker](scripts/check_docs.py)
-- [Static docs page](docs/index.html)
 
 ## Validation
 
-Install the dev dependencies and run:
-
 ```bash
-python -m pip install -r requirements-dev.txt
+python -m pip install -r requirements-dev.lock
 python scripts/validate_repo.py
+python scripts/sync_adapters.py --check
 python scripts/check_docs.py
-bash scripts/quick_audit.sh
 ```
 
-The validator checks:
+The validator checks required files, skill frontmatter, root size, adapter routing and sync, placeholders, author identity, broken internal links, JSON schemas, examples, negative fixtures, page-type/schema alignment, eval fixtures, cache files, and docs assets.
 
-- required file structure
-- strict YAML frontmatter
-- root `SKILL.md` size
-- wrapper routing
-- placeholder strings
-- author identity consistency
-- broken internal links
-- schema and example validity
-- negative schema fixtures (expected failures)
-- cache and duplicate-entrypoint problems
+## Release Checklist
+
+1. Update `.agents/skills/frontend-no-slop/SKILL.md` `metadata.version`.
+2. Add a dated entry to [CHANGELOG.md](CHANGELOG.md).
+3. Run the validation commands above.
+4. Tag the release with the same version string, for example `v2.0.0`.
+5. Publish release notes that mention schema or adapter changes.
+
+Breaking changes include schema/output-contract changes, adapter path changes, and canonical skill routing changes.
 
 ## Author
 

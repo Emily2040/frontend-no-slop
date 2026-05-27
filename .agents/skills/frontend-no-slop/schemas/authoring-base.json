@@ -1,6 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/frontend-no-slop/schemas/authoring-base.json",
   "title": "Frontend No-Slop Authoring Output",
+  "description": "Full handoff output for grounded frontend design, critique, refactor, design-system, copy, and implementation-plan tasks.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -29,7 +31,19 @@
     },
     "page_type": {
       "type": "string",
-      "minLength": 1
+      "description": "Primary page or surface lens. Values must match the page-type registry.",
+      "enum": [
+        "landing-page",
+        "dashboard",
+        "docs",
+        "settings",
+        "onboarding",
+        "data-table",
+        "form",
+        "modal-dialog",
+        "design-system",
+        "app-shell"
+      ]
     },
     "grounding": {
       "type": "object",
@@ -232,6 +246,7 @@
       }
     },
     "risks": {
+      "description": "Risk list ordered by likely impact on the user's task.",
       "type": "array",
       "items": {
         "type": "object",
