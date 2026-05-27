@@ -1,0 +1,216 @@
+{
+  "$schema": "../schemas/eval-suite.json",
+  "version": "1.0.0",
+  "skill": "frontend-no-slop",
+  "cases": [
+    {
+      "id": "landing-cost-monitor-design",
+      "mode": "design",
+      "page_type": "landing-page",
+      "output_schema": "authoring-base",
+      "prompt": "Design a landing page for a warehouse query-cost monitor. The current hero says the product is clean and modern, has three CTAs, and no screenshot. Primary CTA must be Book demo. Secondary CTA must be See query sample. Avoid fake customer logos, invented savings, and unsupported proof.",
+      "assertions": {
+        "field_equals": {
+          "task_type": "design",
+          "page_type": "landing-page"
+        },
+        "must_include_concepts": [
+          "proof",
+          "primary CTA",
+          "secondary CTA",
+          "responsive",
+          "focus",
+          "performance"
+        ],
+        "must_not_include": [
+          "fake customer",
+          "invented savings",
+          "clean and modern",
+          "seamless"
+        ],
+        "min_components": 2
+      }
+    },
+    {
+      "id": "dashboard-incident-queue-audit",
+      "mode": "critique",
+      "page_type": "dashboard",
+      "output_schema": "runtime-compact",
+      "prompt": "Audit an incident dashboard where filters are hidden behind an icon, row actions only appear on hover, KPI cards load at different heights, and empty states are blank. The team wants the highest-risk fixes before release.",
+      "assertions": {
+        "field_equals": {
+          "page_type": "dashboard"
+        },
+        "must_include_concepts": [
+          "visible filters",
+          "row actions",
+          "loading state",
+          "empty state",
+          "keyboard"
+        ],
+        "must_not_include": [
+          "neon metrics",
+          "decorative charts",
+          "intuitive"
+        ]
+      }
+    },
+    {
+      "id": "docs-api-quickstart-audit",
+      "mode": "critique",
+      "page_type": "docs",
+      "output_schema": "runtime-compact",
+      "prompt": "Audit API quickstart docs that have no prerequisites, no version context, one code sample without expected output, and next-step links buried in footer navigation. Keep findings evidence-based and avoid marketing language.",
+      "assertions": {
+        "field_equals": {
+          "page_type": "docs"
+        },
+        "must_include_concepts": [
+          "prerequisites",
+          "version context",
+          "copyable code",
+          "expected output",
+          "next-step links"
+        ],
+        "must_not_include": [
+          "marketing headlines",
+          "walls of text",
+          "best-in-class"
+        ]
+      }
+    },
+    {
+      "id": "settings-billing-refactor",
+      "mode": "refactor",
+      "page_type": "settings",
+      "output_schema": "authoring-base",
+      "prompt": "Plan a refactor for a billing settings page where plan changes, API keys, invoice email, and account deletion sit in one dense form. The user needs safe grouping, clear save behavior, and a better destructive-action flow.",
+      "assertions": {
+        "field_equals": {
+          "task_type": "refactor",
+          "page_type": "settings"
+        },
+        "must_include_concepts": [
+          "destructive action separation",
+          "save state",
+          "loading",
+          "error",
+          "success",
+          "rollback"
+        ],
+        "must_not_include": [
+          "dense unlabeled forms",
+          "premium",
+          "seamless"
+        ],
+        "min_components": 2
+      }
+    },
+    {
+      "id": "onboarding-connectors-plan",
+      "mode": "implementation-plan",
+      "page_type": "onboarding",
+      "output_schema": "authoring-base",
+      "prompt": "Plan onboarding for connecting GitHub, Stripe, and CSV import. The current flow asks for every credential upfront, gives no progress indicator, and does not explain why each connection is needed.",
+      "assertions": {
+        "field_equals": {
+          "task_type": "implementation-plan",
+          "page_type": "onboarding"
+        },
+        "must_include_concepts": [
+          "progress",
+          "requirements",
+          "skip",
+          "success cues",
+          "scope explanation"
+        ],
+        "must_not_include": [
+          "cute illustrations",
+          "unclear completion criteria",
+          "delightful"
+        ],
+        "min_components": 2
+      }
+    },
+    {
+      "id": "data-table-support-queue-audit",
+      "mode": "critique",
+      "page_type": "data-table",
+      "output_schema": "runtime-compact",
+      "prompt": "Audit a support ticket table with truncated customer names, no sorting, filters hidden in a side panel, actions only visible on hover, and a mobile layout that drops status and owner context.",
+      "assertions": {
+        "field_equals": {
+          "page_type": "data-table"
+        },
+        "must_include_concepts": [
+          "sorting",
+          "filtering",
+          "persistent actions",
+          "truncation reveal",
+          "mobile fallback",
+          "keyboard"
+        ],
+        "must_not_include": [
+          "pretty table",
+          "hover only",
+          "sleek"
+        ]
+      }
+    },
+    {
+      "id": "settings-upgrade-modal-spec",
+      "mode": "design",
+      "page_type": "modal-dialog",
+      "output_schema": "authoring-base",
+      "prompt": "Design a plan-upgrade confirmation modal inside settings. It must show the price change, renewal date, payment failure recovery, cancel path, and disabled/loading/error/success states without inventing refund guarantees.",
+      "assertions": {
+        "field_equals": {
+          "task_type": "design",
+          "page_type": "modal-dialog"
+        },
+        "must_include_concepts": [
+          "dialog semantics",
+          "focus trap",
+          "return focus",
+          "disabled",
+          "loading",
+          "error",
+          "success"
+        ],
+        "must_not_include": [
+          "inventing refund guarantees",
+          "modal used for routine content",
+          "next-level"
+        ],
+        "min_components": 2
+      }
+    },
+    {
+      "id": "dashboard-design-system-tightening",
+      "mode": "design-system",
+      "page_type": "design-system",
+      "output_schema": "authoring-base",
+      "prompt": "Improve dashboard button, card, metric, and table primitives for a dense admin product. The current primitives use decorative neon, inconsistent radius, missing focus states, and no density rules for compact views.",
+      "assertions": {
+        "field_equals": {
+          "task_type": "design-system",
+          "page_type": "design-system"
+        },
+        "must_include_concepts": [
+          "tokens",
+          "component states",
+          "density",
+          "contrast",
+          "typography",
+          "usage rules"
+        ],
+        "must_not_include": [
+          "decorative neon",
+          "clean and modern",
+          "cutting-edge"
+        ],
+        "min_components": 2
+      }
+    }
+  ]
+}

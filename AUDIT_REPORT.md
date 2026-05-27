@@ -1,7 +1,7 @@
 # Frontend No-Slop Audit Report
 
 **Status:** Passed  
-**Audit date:** 2026-03-09
+**Audit date:** 2026-05-27
 
 This package was rebuilt and then audited against the supplied Agent Skill Audit Checklist plus the earlier progressive-disclosure guidance.
 
@@ -48,15 +48,17 @@ This package was rebuilt and then audited against the supplied Agent Skill Audit
 The following commands completed successfully:
 
 ```bash
-python3 scripts/validate_repo.py
-bash scripts/quick_audit.sh
+python scripts/validate_repo.py
+python scripts/sync_adapters.py --check
+python scripts/check_docs.py
 ```
 
 Key output:
 
 ```text
-351 SKILL.md
 Validation passed.
+Wrapper files are synchronized.
+Docs check passed.
 ```
 
 ## Notes
@@ -68,6 +70,8 @@ The package now includes:
 - page-type lenses
 - machine-readable JSON schemas
 - validated example outputs
+- static eval fixtures
+- cross-platform adapter checks
 - CI and local audit tooling
 
 That is the boring but necessary hygiene layer. It keeps the skill from turning into a haunted pile of half-synced wrappers and placeholder goo.

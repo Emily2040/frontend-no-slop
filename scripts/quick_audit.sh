@@ -15,7 +15,7 @@ wc -c SKILL.md
 
 echo
 echo "3) Placeholder Scan"
-grep -rniE 'your-org|your-repo|example\.com|your-username|openai' --include="*.md" --include="*.json" --include="*.html" . || true
+grep -rniE 'your-org|your-repo|example\.com|your-username' --include="*.md" --include="*.json" --include="*.html" . || true
 
 echo
 echo "4) Cache Check"

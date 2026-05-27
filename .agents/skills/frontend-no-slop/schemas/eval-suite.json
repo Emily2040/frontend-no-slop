@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/frontend-no-slop/schemas/eval-suite.json",
+  "title": "Frontend No-Slop Eval Suite",
+  "description": "Static eval case manifest for checking skill trigger coverage and expected output qualities without running an LLM.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "skill",
+    "cases"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "skill": {
+      "const": "frontend-no-slop"
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "mode",
+          "page_type",
+          "output_schema",
+          "prompt",
+          "assertions"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "design",
+              "critique",
+              "refactor",
+              "implementation-plan",
+              "design-system",
+              "copy-rewrite"
+            ]
+          },
+          "page_type": {
+            "type": "string"
+          },
+          "output_schema": {
+            "type": "string",
+            "enum": [
+              "authoring-base",
+              "runtime-compact"
+            ]
+          },
+          "prompt": {
+            "type": "string",
+            "minLength": 80,
+            "maxLength": 1200
+          },
+          "assertions": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "field_equals",
+              "must_include_concepts",
+              "must_not_include"
+            ],
+            "properties": {
+              "field_equals": {
+                "type": "object",
+                "minProperties": 1,
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "must_include_concepts": {
+                "type": "array",
+                "minItems": 3,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "must_not_include": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "min_components": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

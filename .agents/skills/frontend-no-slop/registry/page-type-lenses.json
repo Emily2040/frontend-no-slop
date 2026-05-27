@@ -123,6 +123,94 @@
         "no keyboard row action path",
         "mobile collapse that loses meaning"
       ]
+    },
+    {
+      "name": "form",
+      "primary_user_job": "Enter required information, recover from mistakes, and submit with confidence.",
+      "critical_elements": [
+        "visible labels",
+        "helper text",
+        "validation timing",
+        "error recovery",
+        "success confirmation",
+        "keyboard flow"
+      ],
+      "slop_traps": [
+        "placeholder-only labels",
+        "validation only after submit",
+        "disabled submit with no reason"
+      ],
+      "failure_modes": [
+        "unclear required fields",
+        "errors detached from inputs",
+        "no saved or submitted confirmation"
+      ]
+    },
+    {
+      "name": "modal-dialog",
+      "primary_user_job": "Complete or dismiss a focused task without losing context.",
+      "critical_elements": [
+        "clear title",
+        "focused primary action",
+        "escape path",
+        "focus trap",
+        "return focus",
+        "stacking rules"
+      ],
+      "slop_traps": [
+        "modal used for routine content",
+        "unclear cancel behavior",
+        "background remains keyboard reachable"
+      ],
+      "failure_modes": [
+        "focus starts in the wrong place",
+        "destructive action is visually equal to cancel",
+        "dialog content overflows on mobile"
+      ]
+    },
+    {
+      "name": "design-system",
+      "primary_user_job": "Define reusable primitives, variants, and rules so product surfaces stay consistent.",
+      "critical_elements": [
+        "tokens",
+        "component variants",
+        "state matrix",
+        "usage rules",
+        "accessibility defaults",
+        "migration notes"
+      ],
+      "slop_traps": [
+        "tokens with no usage guidance",
+        "component variants without states",
+        "brand adjectives replacing implementation rules"
+      ],
+      "failure_modes": [
+        "teams cannot tell which variant to use",
+        "states diverge across products",
+        "accessibility is left to each implementation"
+      ]
+    },
+    {
+      "name": "app-shell",
+      "primary_user_job": "Navigate between product areas, understand current location, and keep primary work visible.",
+      "critical_elements": [
+        "navigation hierarchy",
+        "current location",
+        "responsive collapse",
+        "search or command access",
+        "account or workspace switcher",
+        "keyboard reachability"
+      ],
+      "slop_traps": [
+        "decorative sidebar chrome",
+        "collapsed navigation with hidden meaning",
+        "global actions detached from context"
+      ],
+      "failure_modes": [
+        "current section is not announced or visible",
+        "mobile nav traps focus",
+        "workspace scope is unclear"
+      ]
     }
   ]
 }

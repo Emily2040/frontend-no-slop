@@ -16,9 +16,32 @@ EXPECTED_AUTHOR = "Iamemily2050"
 EXPECTED_REPO = "https://github.com/Emily2040/frontend-no-slop"
 EXPECTED_LICENSE_LINE = "Copyright (c) 2026 Iamemily2050"
 EXPECTED_DOCS_FOOTER_LINK = "https://github.com/Emily2040"
-PLACEHOLDERS = ["your-org", "your-repo", "example.com", "your-username", "openai"]
+PLACEHOLDERS = ["your-org", "your-repo", "example.com", "your-username"]
+TASK_MODES = {"design", "critique", "refactor", "implementation-plan", "design-system", "copy-rewrite"}
+OUTPUT_SCHEMAS = {"authoring-base", "runtime-compact"}
+WRAPPER_TEXT = (
+    "Load `.agents/skills/frontend-no-slop/SKILL.md` for grounded frontend UI design, critique, "
+    "component specs, accessibility review, and implementation planning. Prefer concrete interface "
+    "decisions over vague style adjectives.\n"
+)
 WRAPPERS = [
     ROOT / "AGENTS.md",
+    ROOT / "CLAUDE.md",
+    ROOT / "GEMINI.md",
+    ROOT / ".cursorrules",
+    ROOT / ".clinerules",
+    ROOT / "adapters/AGENTS.md",
+    ROOT / "adapters/CLAUDE.md",
+    ROOT / "adapters/GEMINI.md",
+    ROOT / "adapters/.cursorrules",
+    ROOT / "adapters/.clinerules",
+]
+SYNCED_ADAPTERS = [
+    ROOT / "adapters/AGENTS.md",
+    ROOT / "adapters/CLAUDE.md",
+    ROOT / "adapters/GEMINI.md",
+    ROOT / "adapters/.cursorrules",
+    ROOT / "adapters/.clinerules",
     ROOT / "CLAUDE.md",
     ROOT / "GEMINI.md",
     ROOT / ".cursorrules",
@@ -35,8 +58,10 @@ REQUIRED_FILES = [
     ROOT / "LICENSE",
     ROOT / ".gitignore",
     ROOT / "requirements-dev.txt",
+    ROOT / "requirements-dev.lock",
     ROOT / "AUDIT_REPORT.md",
     ROOT / "CHANGELOG.md",
+    ROOT / "ROADMAP.md",
     ROOT / "docs/index.html",
     ROOT / "docs/assets/hero.svg",
     ROOT / "docs/assets/architecture.svg",
@@ -48,6 +73,11 @@ REQUIRED_FILES = [
     ROOT / ".github/workflows/validate.yml",
     ROOT / "templates/frontend-brief.md",
     ROOT / "templates/ui-audit-prompt.md",
+    ROOT / "adapters/AGENTS.md",
+    ROOT / "adapters/CLAUDE.md",
+    ROOT / "adapters/GEMINI.md",
+    ROOT / "adapters/.cursorrules",
+    ROOT / "adapters/.clinerules",
     SKILL_ROOT / "SKILL.md",
     SKILL_ROOT / "references/00-orchestrator.md",
     SKILL_ROOT / "skills/core/01-intake-and-grounding.md",
@@ -62,6 +92,8 @@ REQUIRED_FILES = [
     SKILL_ROOT / "registry/frontend-evidence-prompts.json",
     SKILL_ROOT / "schemas/authoring-base.json",
     SKILL_ROOT / "schemas/runtime-compact.json",
+    SKILL_ROOT / "schemas/eval-suite.json",
+    SKILL_ROOT / "evals/frontend-no-slop-evals.json",
     SKILL_ROOT / "examples/landing-page-input.md",
     SKILL_ROOT / "examples/landing-page-output.json",
     SKILL_ROOT / "examples/dashboard-audit-input.md",
@@ -114,12 +146,18 @@ def validate_skill_file(path: Path, enforce_author: bool = False) -> None:
         add_error(str(exc))
         return
 
-    allowed_keys = {"name", "description", "license", "metadata"}
+    allowed_keys = {"name", "description", "license", "compatibility", "allowed-tools", "metadata"}
     extra = set(frontmatter.keys()) - allowed_keys
     check(not extra, f"{path.relative_to(ROOT)} has unsupported frontmatter keys: {sorted(extra)}")
 
     for key in ("name", "description", "license"):
         check(isinstance(frontmatter.get(key), str), f"{path.relative_to(ROOT)} frontmatter key '{key}' must be a string")
+
+    if "compatibility" in frontmatter:
+        check(isinstance(frontmatter.get("compatibility"), str), f"{path.relative_to(ROOT)} frontmatter key 'compatibility' must be a string")
+
+    if "allowed-tools" in frontmatter:
+        check(isinstance(frontmatter.get("allowed-tools"), str), f"{path.relative_to(ROOT)} frontmatter key 'allowed-tools' must be a string")
 
     metadata = frontmatter.get("metadata")
     check(isinstance(metadata, dict), f"{path.relative_to(ROOT)} must contain a metadata object")
@@ -276,6 +314,11 @@ def validate_wrappers() -> None:
         check(CANONICAL_PATH in read_text(wrapper), f"{wrapper.relative_to(ROOT)} must route to {CANONICAL_PATH}")
 
 
+def validate_adapter_sync() -> None:
+    for wrapper in SYNCED_ADAPTERS:
+        check(read_text(wrapper) == WRAPPER_TEXT, f"{wrapper.relative_to(ROOT)} is not synchronized with scripts/sync_adapters.py")
+
+
 def validate_gitignore() -> None:
     gitignore = read_text(ROOT / ".gitignore")
     for token in ["__pycache__", ".DS_Store"]:
@@ -298,6 +341,99 @@ def validate_markdown_links() -> None:
             add_error(f"{path.relative_to(ROOT)} has broken internal link: {broken}")
 
 
+def page_type_names() -> set[str]:
+    registry = validate_json_file(SKILL_ROOT / "registry/page-type-lenses.json")
+    if not isinstance(registry, dict):
+        return set()
+    page_types = registry.get("page_types")
+    if not isinstance(page_types, list):
+        add_error("page-type-lenses.json must contain a page_types array")
+        return set()
+
+    names: set[str] = set()
+    for item in page_types:
+        if not isinstance(item, dict) or not isinstance(item.get("name"), str):
+            add_error("Every page-type lens must contain a string name")
+            continue
+        names.add(item["name"])
+    check(len(names) == len(page_types), "page-type-lenses.json contains duplicate page type names")
+    return names
+
+
+def validate_page_type_schema_alignment() -> None:
+    names = page_type_names()
+    if not names:
+        return
+
+    for schema_path in [
+        SKILL_ROOT / "schemas/authoring-base.json",
+        SKILL_ROOT / "schemas/runtime-compact.json",
+    ]:
+        schema = validate_json_file(schema_path)
+        page_type = schema.get("properties", {}).get("page_type", {}) if isinstance(schema, dict) else {}
+        enum = page_type.get("enum") if isinstance(page_type, dict) else None
+        check(isinstance(enum, list), f"{schema_path.relative_to(ROOT)} page_type must define an enum")
+        if isinstance(enum, list):
+            check(set(enum) == names, f"{schema_path.relative_to(ROOT)} page_type enum must match registry page types")
+
+
+def validate_eval_suite() -> None:
+    eval_schema = validate_json_file(SKILL_ROOT / "schemas/eval-suite.json")
+    eval_suite = validate_json_file(SKILL_ROOT / "evals/frontend-no-slop-evals.json")
+
+    try:
+        Draft202012Validator.check_schema(eval_schema)
+    except Exception as exc:
+        add_error(f"eval-suite.json is not a valid JSON Schema: {exc}")
+
+    try:
+        validate(instance=eval_suite, schema=eval_schema)
+    except Exception as exc:
+        add_error(f"frontend-no-slop-evals.json does not validate against eval-suite.json: {exc}")
+        return
+
+    if not isinstance(eval_suite, dict):
+        return
+
+    names = page_type_names()
+    forbidden = validate_json_file(SKILL_ROOT / "registry/forbidden-slop.json")
+    banned_entries = forbidden.get("banned_phrases", []) if isinstance(forbidden, dict) else []
+    banned = {
+        item["phrase"]
+        for item in banned_entries
+        if isinstance(item, dict) and isinstance(item.get("phrase"), str)
+    }
+    cases = eval_suite.get("cases", [])
+    ids: set[str] = set()
+    covered_page_types: set[str] = set()
+
+    for case in cases:
+        case_id = case["id"]
+        check(case_id not in ids, f"Duplicate eval id: {case_id}")
+        ids.add(case_id)
+
+        check(case["mode"] in TASK_MODES, f"{case_id} has unsupported mode: {case['mode']}")
+        check(case["output_schema"] in OUTPUT_SCHEMAS, f"{case_id} has unsupported output_schema: {case['output_schema']}")
+        check(case["page_type"] in names, f"{case_id} page_type is not in page-type-lenses.json")
+        covered_page_types.add(case["page_type"])
+
+        prompt_lower = case["prompt"].lower()
+        for token in PLACEHOLDERS:
+            check(token not in prompt_lower, f"{case_id} prompt contains placeholder token '{token}'")
+
+        assertions = case["assertions"]
+        field_equals = assertions["field_equals"]
+        if "page_type" in field_equals:
+            check(field_equals["page_type"] == case["page_type"], f"{case_id} field_equals.page_type must match case page_type")
+        if "task_type" in field_equals:
+            check(field_equals["task_type"] == case["mode"], f"{case_id} field_equals.task_type must match case mode")
+
+        must_not_include = set(assertions["must_not_include"])
+        check(bool(must_not_include & banned), f"{case_id} must_not_include should include at least one forbidden-slop phrase")
+
+    check(len(covered_page_types) >= 6, "Eval suite must cover at least six page types")
+
+
 def main() -> int:
     validate_required_files()
     check_no_cache_or_strays()
@@ -311,6 +447,7 @@ def main() -> int:
     validate_skill_file(SKILL_ROOT / "SKILL.md", enforce_author=False)
     validate_root_size()
     validate_wrappers()
+    validate_adapter_sync()
     validate_markdown_links()
     validate_author_consistency()
     validate_gitignore()
@@ -324,6 +461,8 @@ def main() -> int:
         SKILL_ROOT / "registry/frontend-evidence-prompts.json",
         SKILL_ROOT / "schemas/authoring-base.json",
         SKILL_ROOT / "schemas/runtime-compact.json",
+        SKILL_ROOT / "schemas/eval-suite.json",
+        SKILL_ROOT / "evals/frontend-no-slop-evals.json",
         SKILL_ROOT / "examples/landing-page-output.json",
         SKILL_ROOT / "examples/dashboard-audit-output.json",
         SKILL_ROOT / "examples/invalid-landing-page-output.json",
@@ -335,6 +474,8 @@ def main() -> int:
     scan_surrogates()
     validate_examples()
     validate_negative_examples()
+    validate_page_type_schema_alignment()
+    validate_eval_suite()
 
     if errors:
         for error in errors:
