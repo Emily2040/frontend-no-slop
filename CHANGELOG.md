@@ -9,6 +9,7 @@ This project follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) an
 ### Added
 - Compatibility matrix and release checklist in `README.md`.
 - Current roadmap in `ROADMAP.md`.
+- Generated bitmap hero infographic at `docs/assets/hero-infographic.png`.
 
 ## [2.0.0] - 2026-05-27
 
