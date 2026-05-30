@@ -14,6 +14,7 @@ class DocsParser(HTMLParser):
         self.has_skip_link = False
         self.main_ids: set[str] = set()
         self.image_sources: list[str] = []
+        self.og_image: str | None = None
         self.has_description = False
         self.has_og_title = False
         self.has_og_description = False
@@ -39,6 +40,8 @@ class DocsParser(HTMLParser):
                 self.has_og_title = True
             if mapping.get("property") == "og:description":
                 self.has_og_description = True
+            if mapping.get("property") == "og:image" and mapping.get("content"):
+                self.og_image = mapping["content"]
 
 
 def main() -> int:
@@ -68,6 +71,10 @@ def main() -> int:
             continue
         if not (DOCS / src).exists():
             errors.append(f"docs/index.html references missing image: {src}")
+
+    if parser.og_image and not parser.og_image.startswith(("http://", "https://", "data:")):
+        if not (DOCS / parser.og_image).exists():
+            errors.append(f"docs/index.html references missing og:image: {parser.og_image}")
 
     if errors:
         for error in errors:

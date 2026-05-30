@@ -7,7 +7,7 @@
 
 Grounded frontend design and implementation guidance for agents that keeps UI work concrete, accessible, and production-aware instead of drifting into generic design filler.
 
-![Frontend No-Slop hero](docs/assets/hero.svg)
+![Frontend No-Slop hero infographic](docs/assets/hero-infographic.png)
 
 ## Quick Start
 
@@ -117,6 +117,7 @@ The package follows progressive disclosure and a canonical-source wrapper layout
 ├── AUDIT_REPORT.md
 ├── CHANGELOG.md
 ├── docs/
+│   └── assets/hero-infographic.png
 ├── templates/
 └── scripts/
 ```
@@ -136,6 +137,7 @@ The package follows progressive disclosure and a canonical-source wrapper layout
 - [Eval cases](.agents/skills/frontend-no-slop/evals/frontend-no-slop-evals.json)
 - [Validator](scripts/validate_repo.py)
 - [Adapter sync](scripts/sync_adapters.py)
+- [Hero infographic](docs/assets/hero-infographic.png)
 - [Docs checker](scripts/check_docs.py)
 
 ## Validation

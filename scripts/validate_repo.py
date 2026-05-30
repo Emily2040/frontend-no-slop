@@ -63,6 +63,7 @@ REQUIRED_FILES = [
     ROOT / "CHANGELOG.md",
     ROOT / "ROADMAP.md",
     ROOT / "docs/index.html",
+    ROOT / "docs/assets/hero-infographic.png",
     ROOT / "docs/assets/hero.svg",
     ROOT / "docs/assets/architecture.svg",
     ROOT / "docs/assets/workflow.svg",
@@ -184,6 +185,11 @@ def validate_json_file(path: Path) -> object:
 
 def validate_svg(path: Path) -> None:
     check(read_text(path).lstrip().startswith("<svg"), f"{path.relative_to(ROOT)} does not appear to be an SVG file")
+
+
+def validate_png(path: Path) -> None:
+    signature = path.read_bytes()[:8]
+    check(signature == b"\x89PNG\r\n\x1a\n", f"{path.relative_to(ROOT)} does not appear to be a PNG file")
 
 
 def broken_internal_links(markdown_path: Path) -> list[str]:
@@ -451,6 +457,7 @@ def main() -> int:
     validate_markdown_links()
     validate_author_consistency()
     validate_gitignore()
+    validate_png(ROOT / "docs/assets/hero-infographic.png")
     validate_svg(ROOT / "docs/assets/hero.svg")
     validate_svg(ROOT / "docs/assets/architecture.svg")
     validate_svg(ROOT / "docs/assets/workflow.svg")

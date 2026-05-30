@@ -24,3 +24,4 @@ This is the current improvement plan for Frontend No-Slop. Keep historical audit
 - Page-type registry and schema alignment added.
 - Static eval manifest added.
 - Accessibility and performance guidance tied to public standards.
+- Generated hero infographic added to the README and docs page.
